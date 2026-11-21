@@ -1,0 +1,27 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    env:
+      DOTNET_NOLOGO: "true"
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 8.0.x
+      - run: dotnet test tests/LlmGuard.Tests -c Release --logger "console;verbosity=normal"
+      - name: Outage simulation
+        run: |
+          dotnet run --project samples/OutageDemo -c Release | tee demo.txt
+          { echo '```text'; cat demo.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
