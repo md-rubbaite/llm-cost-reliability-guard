@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Cost and reliability guard for LLM calls: per-tenant budgets, caching, model routing, retries, circuit breakers, fallback and usage reports.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="LlmGuard.Tests" />
+  </ItemGroup>
+</Project>
